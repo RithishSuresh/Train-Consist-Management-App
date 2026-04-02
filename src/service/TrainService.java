@@ -2,6 +2,7 @@ package service;
 import core.ConsistManager;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 public class TrainService {
     private final ConsistManager consistManager = new ConsistManager();
     public void executeUC1() {
@@ -28,6 +29,18 @@ public class TrainService {
         boolean isAdded = uniqueBogies.add("B1");
         System.out.println("Was duplicate 'B1' added? " + isAdded + " (Duplicates are ignored automatically)");
         displayConsist("Unique Bogie IDs (HashSet)", uniqueBogies);
+        System.out.println();
+    }
+    public void executeUC4() {
+        System.out.println("--- UC4 OUTPUT ---");
+        LinkedList<String> orderedConsist = consistManager.createLinkedListConsist();
+        orderedConsist.add("Engine"); orderedConsist.add("Sleeper"); orderedConsist.add("AC"); orderedConsist.add("Cargo"); orderedConsist.add("Guard");
+        System.out.println("Initial Ordered Consist: " + orderedConsist);
+        orderedConsist.add(2, "Pantry Car");
+        System.out.println("After inserting Pantry Car at index 2: " + orderedConsist);
+        System.out.println("Removed first bogie: " + orderedConsist.removeFirst());
+        System.out.println("Removed last bogie: " + orderedConsist.removeLast());
+        displayConsist("Final Train Order (LinkedList)", orderedConsist);
         System.out.println();
     }
     public void addBogies(ArrayList<String> list, String bogie) { System.out.println("Adding: " + bogie); list.add(bogie); }

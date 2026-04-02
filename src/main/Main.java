@@ -6,5 +6,6 @@ public class Main {
         trainService.executeUC1();
         trainService.executeUC2();
         trainService.executeUC3();
+        trainService.executeUC4();
     }
 }
