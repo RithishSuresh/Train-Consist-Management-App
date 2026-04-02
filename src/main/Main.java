@@ -5,5 +5,6 @@ public class Main {
         TrainService trainService = new TrainService();
         trainService.executeUC1();
         trainService.executeUC2();
+        trainService.executeUC3();
     }
 }
