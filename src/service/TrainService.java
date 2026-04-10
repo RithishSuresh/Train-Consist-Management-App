@@ -1,6 +1,7 @@
 package service;
 
 import core.ConsistManager;
+import model.Bogie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,6 +9,8 @@ import java.util.LinkedList;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Comparator;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -191,6 +194,25 @@ public class TrainService {
         System.out.println("Bogie Capacities:");
         for (Map.Entry<String, Integer> entry : capacities.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+        System.out.println();
+    }
+
+    /**
+     * UC7: Sort Bogies by Capacity (Comparator)
+     */
+    public void executeUC7() {
+        System.out.println("--- UC7 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        bogies.sort(Comparator.comparingInt(Bogie::getCapacity));
+
+        System.out.println("Bogies Sorted by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
         System.out.println();
     }
