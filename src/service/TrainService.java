@@ -257,4 +257,22 @@ public class TrainService {
         }
         System.out.println();
     }
+
+    /**
+     * UC10: Total Seat Calculation (reduce)
+     */
+    public void executeUC10() {
+        System.out.println("--- UC10 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        int totalSeats = bogies.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("Total seating capacity: " + totalSeats);
+        System.out.println();
+    }
 }
