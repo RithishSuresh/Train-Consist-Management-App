@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -174,5 +176,22 @@ public class TrainService {
      */
     public void displayConsist(String heading, Iterable<String> consist) {
         System.out.println(heading + ": " + consist);
+    }
+
+    /**
+     * UC6: Map Bogie to Capacity (HashMap)
+     */
+    public void executeUC6() {
+        System.out.println("--- UC6 OUTPUT ---");
+        Map<String, Integer> capacities = new HashMap<>();
+        capacities.put("Sleeper", 72);
+        capacities.put("AC Chair", 60);
+        capacities.put("First Class", 40);
+
+        System.out.println("Bogie Capacities:");
+        for (Map.Entry<String, Integer> entry : capacities.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+        System.out.println();
     }
 }
