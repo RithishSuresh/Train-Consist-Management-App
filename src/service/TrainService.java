@@ -236,4 +236,25 @@ public class TrainService {
         filteredBogies.forEach(System.out::println);
         System.out.println();
     }
+
+    /**
+     * UC9: Group Bogies by Type
+     */
+    public void executeUC9() {
+        System.out.println("--- UC9 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("C1", 0, "Cargo"));
+        bogies.add(new Bogie("B2", 60, "Passenger"));
+
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(Bogie::getType));
+
+        System.out.println("Bogies Grouped by Type:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("Type: " + entry.getKey());
+            entry.getValue().forEach(b -> System.out.println("  " + b));
+        }
+        System.out.println();
+    }
 }
