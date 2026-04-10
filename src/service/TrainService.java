@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -214,6 +215,25 @@ public class TrainService {
         for (Bogie b : bogies) {
             System.out.println(b);
         }
+        System.out.println();
+    }
+
+    /**
+     * UC8: Filter Bogies Using Streams
+     */
+    public void executeUC8() {
+        System.out.println("--- UC8 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+
+        System.out.println("Bogies with capacity > 60:");
+        filteredBogies.forEach(System.out::println);
         System.out.println();
     }
 }
