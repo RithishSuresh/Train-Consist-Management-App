@@ -2,6 +2,7 @@ package service;
 
 import core.ConsistManager;
 import model.Bogie;
+import model.GoodsBogie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -301,6 +302,28 @@ public class TrainService {
                 System.out.println(test + " -> Invalid Format");
             }
         }
+        System.out.println();
+    }
+
+    /**
+     * UC12: Safety Compliance Check
+     */
+    public void executeUC12() {
+        System.out.println("--- UC12 OUTPUT ---");
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Box", "Coal"));
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b -> {
+                    if ("Cylindrical".equals(b.getType())) {
+                        return "Petroleum".equals(b.getCargo());
+                    }
+                    return true;
+                });
+
+        System.out.println("Safety Compliance Check: " + (isSafe ? "Safe" : "Not Safe"));
         System.out.println();
     }
 }
