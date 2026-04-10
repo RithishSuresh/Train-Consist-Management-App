@@ -1,6 +1,7 @@
 package service;
 
 import core.ConsistManager;
+import model.Bogie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,6 +9,11 @@ import java.util.LinkedList;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -191,6 +197,109 @@ public class TrainService {
         System.out.println("Bogie Capacities:");
         for (Map.Entry<String, Integer> entry : capacities.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+        System.out.println();
+    }
+
+    /**
+     * UC7: Sort Bogies by Capacity (Comparator)
+     */
+    public void executeUC7() {
+        System.out.println("--- UC7 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        bogies.sort(Comparator.comparingInt(Bogie::getCapacity));
+
+        System.out.println("Bogies Sorted by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
+        System.out.println();
+    }
+
+    /**
+     * UC8: Filter Bogies Using Streams
+     */
+    public void executeUC8() {
+        System.out.println("--- UC8 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+
+        System.out.println("Bogies with capacity > 60:");
+        filteredBogies.forEach(System.out::println);
+        System.out.println();
+    }
+
+    /**
+     * UC9: Group Bogies by Type
+     */
+    public void executeUC9() {
+        System.out.println("--- UC9 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("C1", 0, "Cargo"));
+        bogies.add(new Bogie("B2", 60, "Passenger"));
+
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(Bogie::getType));
+
+        System.out.println("Bogies Grouped by Type:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("Type: " + entry.getKey());
+            entry.getValue().forEach(b -> System.out.println("  " + b));
+        }
+        System.out.println();
+    }
+
+    /**
+     * UC10: Total Seat Calculation (reduce)
+     */
+    public void executeUC10() {
+        System.out.println("--- UC10 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("B1", 72, "Passenger"));
+        bogies.add(new Bogie("B2", 40, "Passenger"));
+        bogies.add(new Bogie("B3", 60, "Passenger"));
+
+        int totalSeats = bogies.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("Total seating capacity: " + totalSeats);
+        System.out.println();
+    }
+
+    /**
+     * UC11: Regex Validation
+     */
+    public void executeUC11() {
+        System.out.println("--- UC11 OUTPUT ---");
+        Pattern trainIdPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoCodePattern = Pattern.compile("PET-[A-Z]{2}");
+
+        String[] testStrings = {"TRN-1234", "TRN-123", "PET-AB", "PET-A"};
+
+        System.out.println("Regex Validation Results:");
+        for (String test : testStrings) {
+            boolean isTrainIdValid = trainIdPattern.matcher(test).matches();
+            boolean isCargoCodeValid = cargoCodePattern.matcher(test).matches();
+            
+            if (isTrainIdValid) {
+                System.out.println(test + " -> Valid Train ID");
+            } else if (isCargoCodeValid) {
+                System.out.println(test + " -> Valid Cargo Code");
+            } else {
+                System.out.println(test + " -> Invalid Format");
+            }
         }
         System.out.println();
     }
