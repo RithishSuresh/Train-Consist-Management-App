@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -273,6 +275,32 @@ public class TrainService {
                 .reduce(0, Integer::sum);
 
         System.out.println("Total seating capacity: " + totalSeats);
+        System.out.println();
+    }
+
+    /**
+     * UC11: Regex Validation
+     */
+    public void executeUC11() {
+        System.out.println("--- UC11 OUTPUT ---");
+        Pattern trainIdPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoCodePattern = Pattern.compile("PET-[A-Z]{2}");
+
+        String[] testStrings = {"TRN-1234", "TRN-123", "PET-AB", "PET-A"};
+
+        System.out.println("Regex Validation Results:");
+        for (String test : testStrings) {
+            boolean isTrainIdValid = trainIdPattern.matcher(test).matches();
+            boolean isCargoCodeValid = cargoCodePattern.matcher(test).matches();
+            
+            if (isTrainIdValid) {
+                System.out.println(test + " -> Valid Train ID");
+            } else if (isCargoCodeValid) {
+                System.out.println(test + " -> Valid Cargo Code");
+            } else {
+                System.out.println(test + " -> Invalid Format");
+            }
+        }
         System.out.println();
     }
 }

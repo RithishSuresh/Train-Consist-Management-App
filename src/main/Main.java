@@ -22,5 +22,6 @@ public class Main {
         trainService.executeUC8();
         trainService.executeUC9();
         trainService.executeUC10();
+        trainService.executeUC11();
     }
 }
