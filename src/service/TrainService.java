@@ -475,4 +475,38 @@ public class TrainService {
         }
         System.out.println();
     }
+
+    /**
+     * UC19: Binary Search
+     */
+    public void binarySearchBogie() {
+        System.out.println("--- UC19 OUTPUT ---");
+        String[] sortedBogies = {"AC Chair", "Cargo", "General", "Pantry", "Sleeper"};
+        String target = "General";
+        
+        System.out.println("Binary searching for: " + target);
+        int low = 0;
+        int high = sortedBogies.length - 1;
+        boolean found = false;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int comparison = sortedBogies[mid].compareTo(target);
+
+            if (comparison == 0) {
+                System.out.println("Found " + target + " at index " + mid);
+                found = true;
+                break;
+            } else if (comparison < 0) {
+                low = mid + 1; // target is strictly greater, search right half
+            } else {
+                high = mid - 1; // target is strictly less, search left half
+            }
+        }
+
+        if (!found) {
+            System.out.println(target + " not found.");
+        }
+        System.out.println();
+    }
 }

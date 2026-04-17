@@ -33,5 +33,6 @@ public class Main {
         trainService.bubbleSortCapacities();
         trainService.sortBogieNames();
         trainService.linearSearchBogie();
+        trainService.binarySearchBogie();
     }
 }
