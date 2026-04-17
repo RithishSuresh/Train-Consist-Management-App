@@ -328,4 +328,35 @@ public class TrainService {
         System.out.println("Safety Compliance Check: " + (isSafe ? "Safe" : "Not Safe"));
         System.out.println();
     }
+    /**
+     * UC13: Performance Comparison (Loops vs Streams)
+     */
+    public void comparePerformance() {
+        System.out.println("--- UC13 OUTPUT ---");
+        List<Bogie> bogies = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            bogies.add(new Bogie("B" + i, i % 100, "Passenger"));
+        }
+
+        // Loop
+        long startLoop = System.nanoTime();
+        List<Bogie> loopFiltered = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.getCapacity() > 50) {
+                loopFiltered.add(b);
+            }
+        }
+        long loopTime = System.nanoTime() - startLoop;
+
+        // Stream
+        long startStream = System.nanoTime();
+        List<Bogie> streamFiltered = bogies.stream()
+                .filter(b -> b.getCapacity() > 50)
+                .collect(Collectors.toList());
+        long streamTime = System.nanoTime() - startStream;
+
+        System.out.println("Loop execution time: " + loopTime + " ns");
+        System.out.println("Stream execution time: " + streamTime + " ns");
+        System.out.println();
+    }
 }

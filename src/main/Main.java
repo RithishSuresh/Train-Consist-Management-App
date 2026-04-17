@@ -25,5 +25,8 @@ public class Main {
         trainService.executeUC10();
         trainService.executeUC11();
         trainService.executeUC12();
+
+        // Sequentially execute UC13 to UC20
+        trainService.comparePerformance();
     }
 }
