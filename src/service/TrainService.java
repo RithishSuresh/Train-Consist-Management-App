@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.Arrays;
 
 /**
  * Service class that handles business logic and execution of Use Cases 1 to 5.
@@ -436,5 +437,18 @@ public class TrainService {
         System.out.print("After Bubble Sort: ");
         for (int c : capacities) System.out.print(c + " ");
         System.out.println("\n");
+    }
+
+    /**
+     * UC17: Arrays.sort() Implementation
+     */
+    public void sortBogieNames() {
+        System.out.println("--- UC17 OUTPUT ---");
+        String[] bogieNames = {"Sleeper", "Pantry", "AC Chair", "General", "Cargo"};
+        
+        System.out.println("Before Sorting: " + Arrays.toString(bogieNames));
+        Arrays.sort(bogieNames);
+        System.out.println("After Sorting: " + Arrays.toString(bogieNames));
+        System.out.println();
     }
 }
