@@ -3,6 +3,7 @@ package service;
 import core.ConsistManager;
 import model.Bogie;
 import model.GoodsBogie;
+import model.InvalidCapacityException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -210,9 +211,9 @@ public class TrainService {
     public void executeUC7() {
         System.out.println("--- UC7 OUTPUT ---");
         List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("B1", 72, "Passenger"));
-        bogies.add(new Bogie("B2", 40, "Passenger"));
-        bogies.add(new Bogie("B3", 60, "Passenger"));
+        bogies.add(createSafeBogie("B1", 72, "Passenger"));
+        bogies.add(createSafeBogie("B2", 40, "Passenger"));
+        bogies.add(createSafeBogie("B3", 60, "Passenger"));
 
         bogies.sort(Comparator.comparingInt(Bogie::getCapacity));
 
@@ -229,9 +230,9 @@ public class TrainService {
     public void executeUC8() {
         System.out.println("--- UC8 OUTPUT ---");
         List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("B1", 72, "Passenger"));
-        bogies.add(new Bogie("B2", 40, "Passenger"));
-        bogies.add(new Bogie("B3", 60, "Passenger"));
+        bogies.add(createSafeBogie("B1", 72, "Passenger"));
+        bogies.add(createSafeBogie("B2", 40, "Passenger"));
+        bogies.add(createSafeBogie("B3", 60, "Passenger"));
 
         List<Bogie> filteredBogies = bogies.stream()
                 .filter(b -> b.getCapacity() > 60)
@@ -248,9 +249,9 @@ public class TrainService {
     public void executeUC9() {
         System.out.println("--- UC9 OUTPUT ---");
         List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("B1", 72, "Passenger"));
-        bogies.add(new Bogie("C1", 0, "Cargo"));
-        bogies.add(new Bogie("B2", 60, "Passenger"));
+        bogies.add(createSafeBogie("B1", 72, "Passenger"));
+        bogies.add(createSafeBogie("C1", 100, "Cargo"));
+        bogies.add(createSafeBogie("B2", 60, "Passenger"));
 
         Map<String, List<Bogie>> groupedBogies = bogies.stream()
                 .collect(Collectors.groupingBy(Bogie::getType));
@@ -269,9 +270,9 @@ public class TrainService {
     public void executeUC10() {
         System.out.println("--- UC10 OUTPUT ---");
         List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("B1", 72, "Passenger"));
-        bogies.add(new Bogie("B2", 40, "Passenger"));
-        bogies.add(new Bogie("B3", 60, "Passenger"));
+        bogies.add(createSafeBogie("B1", 72, "Passenger"));
+        bogies.add(createSafeBogie("B2", 40, "Passenger"));
+        bogies.add(createSafeBogie("B3", 60, "Passenger"));
 
         int totalSeats = bogies.stream()
                 .map(Bogie::getCapacity)
@@ -335,7 +336,11 @@ public class TrainService {
         System.out.println("--- UC13 OUTPUT ---");
         List<Bogie> bogies = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            bogies.add(new Bogie("B" + i, i % 100, "Passenger"));
+        try {
+            bogies.add(new Bogie("B" + i, (i % 100) + 1, "Passenger"));
+        } catch (InvalidCapacityException e) {
+            // Ignored for performance setup
+        }
         }
 
         // Loop
@@ -357,6 +362,32 @@ public class TrainService {
 
         System.out.println("Loop execution time: " + loopTime + " ns");
         System.out.println("Stream execution time: " + streamTime + " ns");
+        System.out.println();
+    }
+
+    /**
+     * Helper to safely construct a bogie without throwing checked exceptions constantly.
+     */
+    private Bogie createSafeBogie(String name, int capacity, String type) {
+        try {
+            return new Bogie(name, capacity, type);
+        } catch (InvalidCapacityException e) {
+            System.err.println("Failed to create safe bogie: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * UC14: Custom Exception for Invalid Capacity
+     */
+    public void createValidatedBogie() {
+        System.out.println("--- UC14 OUTPUT ---");
+        try {
+            System.out.println("Attempting to create a bogie with capacity -10...");
+            Bogie b = new Bogie("Invalid", -10, "Passenger");
+        } catch (InvalidCapacityException e) {
+            System.out.println("Exception caught: " + e.getMessage());
+        }
         System.out.println();
     }
 }

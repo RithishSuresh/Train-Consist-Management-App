@@ -8,7 +8,10 @@ public class Bogie {
     private int capacity;
     private String type; // Passenger or Cargo
 
-    public Bogie(String name, int capacity, String type) {
+    public Bogie(String name, int capacity, String type) throws InvalidCapacityException {
+        if (capacity <= 0) {
+            throw new InvalidCapacityException("Capacity must be greater than zero.");
+        }
         this.name = name;
         this.capacity = capacity;
         this.type = type;
