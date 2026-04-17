@@ -29,5 +29,6 @@ public class Main {
         // Sequentially execute UC13 to UC20
         trainService.comparePerformance();
         trainService.createValidatedBogie();
+        trainService.assignCargoSafely();
     }
 }

@@ -390,4 +390,26 @@ public class TrainService {
         }
         System.out.println();
     }
+
+    /**
+     * UC15: Safe Cargo Assignment
+     */
+    public void assignCargoSafely() {
+        System.out.println("--- UC15 OUTPUT ---");
+        try {
+            System.out.println("Assigning Petroleum to a Rectangular bogie...");
+            String bogieShape = "Rectangular";
+            String cargoType = "Petroleum";
+            
+            if ("Rectangular".equals(bogieShape) && "Petroleum".equals(cargoType)) {
+                throw new model.CargoSafetyException("Safety Violation: Rectangular bogie cannot carry Petroleum!");
+            }
+            System.out.println("Cargo assigned successfully.");
+        } catch (model.CargoSafetyException e) {
+            System.out.println("Error message: " + e.getMessage());
+        } finally {
+            System.out.println("Finally block: Cargo safety check completed.");
+        }
+        System.out.println();
+    }
 }
