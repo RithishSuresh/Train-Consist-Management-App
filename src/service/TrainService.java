@@ -451,4 +451,28 @@ public class TrainService {
         System.out.println("After Sorting: " + Arrays.toString(bogieNames));
         System.out.println();
     }
+
+    /**
+     * UC18: Linear Search
+     */
+    public void linearSearchBogie() {
+        System.out.println("--- UC18 OUTPUT ---");
+        String[] bogieIds = {"B101", "B102", "B103", "B104", "B105"};
+        String target = "B103";
+        boolean found = false;
+
+        System.out.println("Searching for bogie ID: " + target);
+        for (int i = 0; i < bogieIds.length; i++) {
+            if (bogieIds[i].equals(target)) {
+                System.out.println("Found " + target + " at index " + i);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println(target + " not found.");
+        }
+        System.out.println();
+    }
 }
