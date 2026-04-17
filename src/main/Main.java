@@ -30,5 +30,6 @@ public class Main {
         trainService.comparePerformance();
         trainService.createValidatedBogie();
         trainService.assignCargoSafely();
+        trainService.bubbleSortCapacities();
     }
 }
