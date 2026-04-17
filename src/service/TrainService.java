@@ -509,4 +509,24 @@ public class TrainService {
         }
         System.out.println();
     }
+
+    /**
+     * UC20: Defensive Programming
+     * Check if collection is empty before searching.
+     */
+    public void safeSearch() {
+        System.out.println("--- UC20 OUTPUT ---");
+        List<String> emptyBogies = new ArrayList<>();
+        
+        System.out.println("Attempting to search an empty collection...");
+        try {
+            if (emptyBogies.isEmpty()) {
+                throw new IllegalStateException("No bogies available");
+            }
+            System.out.println("Beginning search...");
+        } catch (IllegalStateException e) {
+            System.out.println("Caught an exception: " + e.getMessage());
+        }
+        System.out.println();
+    }
 }

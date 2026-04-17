@@ -34,5 +34,6 @@ public class Main {
         trainService.sortBogieNames();
         trainService.linearSearchBogie();
         trainService.binarySearchBogie();
+        trainService.safeSearch();
     }
 }
